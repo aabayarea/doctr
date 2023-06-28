@@ -45,8 +45,8 @@ async def perform_ocr(file: UploadFile = File(...)):
     output = result.export()
     
     return [
-        OCROut(box=(*word['geometry'][0], *word['geometry'][1]), value=word['value'])
-        for page in output['pages']
+        OCROut(box=(*word['geometry'][0], *word['geometry'][1]), value=word['value'], page_num=i)
+        for i, page in enumerate(output['pages'])
         for block in page['blocks']
         for line in block['lines']
         for word in line['words']
